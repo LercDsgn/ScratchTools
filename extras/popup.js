@@ -1,23 +1,27 @@
 async function doStuff() {
     const response = await fetch('https://tools.scratchstatus.org/warning/')
     const data = await response.json()
+    
     if (data['title'] !== ' ') {
         console.log(data['color'])
         var div = document.createElement('div')
         var title = data['title']
         var title2 = document.createElement('h3')
-        title2.style.color = color
-        title2.textContent = title
         var description = data['description']
         var description2 = document.createElement('p')
-        description2.textContent = description
         var color = data['color']
+        
+        title2.style.color = color
+        title2.textContent = title
+        description2.textContent = description
+        
         div.style.padding = '10px'
         div.style.margin = '5px'
         div.style.borderRadius = '10px'
         div.style.border = `2px solid ${color}`
         div.appendChild(title2)
         div.appendChild(description2)
+        
         if (data['button'] !== ' ') {
             var button = document.createElement('button')
             button.addEventListener("click", openIndex);
@@ -27,11 +31,11 @@ async function doStuff() {
             button.style.backgroundColor = '#ff9f00'
             button.style.color = 'white'
 
-function openIndex() {
-chrome.tabs.create({active: true, url: data['url']});
-}
-button.textContent = data['button']
-div.appendChild(button)
+            function openIndex() {
+                chrome.tabs.create({active: true, url: data['url']});
+            }
+            button.textContent = data['button']
+            div.appendChild(button)
         }
         document.body.prepend(div)
     }
@@ -45,37 +49,49 @@ function leaderboard() {
 //leaderboard()
 //}
 
-function again() {
-    var abc = document.querySelector('center')
-    var def = document.createElement('button')
-    def.onclick = function() {
+function topButtons() {
+    var target = document.querySelector('center')
+    var btn = document.createElement('button')
+    btn.onclick = function() {
         chrome.tabs.create({active: true, url: 'https://tools.scratchstatus.org/' });
     }
-    def.textContent = 'Website'
-            def.style.border = '0px'
-            def.style.padding = '7px'
-            def.style.borderRadius = '5px'
-            def.style.backgroundColor = '#ff9f00'
-            def.style.color = 'white'
-            def.style.margin = '10px'
-abc.appendChild(def)
+    btn.textContent = 'Website'
+    
+    // Styles
+    btn.style.border = '0px'
+    btn.style.padding = '7px'
+    btn.style.borderRadius = '5px'
+    btn.style.backgroundColor = '#ff9f00'
+    btn.style.color = 'white'
+    btn.style.margin = '10px'
+    
+target.appendChild(btn)
 
-var abc = document.querySelector('center')
-    var def = document.createElement('button')
-    def.onclick = function() {
+    var target = document.querySelector('center')
+    var btn = document.createElement('button')
+
+    btn.onclick = () => {
         chrome.tabs.create({active: true, url: 'https://discord.gg/B8be27p5Cn' });
     }
-    def.textContent = 'Discord'
-    def.title = 'Ages 13 and over!!'
-            def.style.border = '0px'
-            def.style.padding = '7px'
-            def.style.borderRadius = '5px'
-            def.style.backgroundColor = '#ff9f00'
-            def.style.color = 'white'
-            def.style.margin = '10px'
-abc.appendChild(def)
+    btn.textContent = 'Discord'
+    btn.title = 'Ages 13+'
+    /*btn.title = 'Discord Server'
+    btn.onmouseover = () => {
+        this.textContent = 'Ages 13+ only!'
+    }
+    btn.onmouseleave = () => {
+        this.textContent = 'Discord'
+    }*/
+    // Styles
+    btn.style.border = '0px'
+    btn.style.padding = '7px'
+    btn.style.borderRadius = '5px'
+    btn.style.backgroundColor = '#ff9f00'
+    btn.style.color = 'white'
+    btn.style.margin = '10px'
+target.appendChild(btn)
 }
-again()
+topButtons()
 
 async function createFeature(name, description, id, credits, def) {
     var div23 = document.createElement('div')
@@ -169,3 +185,4 @@ document.querySelector('div.settings').querySelectorAll('h3').forEach(function(i
       item.style.color = '#2196F3'
   }
 })
+
