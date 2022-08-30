@@ -1,4 +1,4 @@
-if (window.location.href.startsWith('https://scratch.mit.edu/projects/') && window.location.href.includes('/editor')) {
+if (/https:\/\/scratch\.mit\.edu\/projects\/.*\/editor/.test(window.location.href)) {
 if (document.blockLog === undefined) {
     document.blockLog = 'ok'
 document.addEventListener('keydown', function(event) {
